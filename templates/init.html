@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+<p>cGANによる数字生成</p>
+<script type="text/javascript">
+    function getGanImage(num) {
+        var num = document.getElementById('inputNum').value;
+        var img = document.getElementById('generatedImage');
+        img.setAttribute('src', '/genimage?q=' + num + '&dummy=' + new Date().getTime()); // キャッシュ阻止
+    }
+</script>
+<form action="#">
+    <label>1～9までの数値を選択</label>
+    <input type="number" min="1" max="9" id="inputNum" value="1">
+    <button onclick="getGanImage()">生成</button>
+</form>
+<img src="" id="generatedImage">
+{% endblock %}
