@@ -5,11 +5,11 @@
     var dcganInterval;
 
     function changeConditionalGanImage() {
-        cganInterval = setInterval(getConditionalGanImage, 1000); // 1秒ごとにgetConditionalGanImage()を呼び出す
+        cganInterval = setInterval(getConditionalGanImage, 5000); // 1秒ごとにgetConditionalGanImage()を呼び出す
     }
 
     function changeDcganImage() {
-        dcganInterval = setInterval(getDcganImage, 1000); // 1秒ごとにgetConditionalGanImage()を呼び出す
+        dcganInterval = setInterval(getDcganImage, 5000); // 1秒ごとにgetConditionalGanImage()を呼び出す
     }
 
     function getConditionalGanImage() {
@@ -35,7 +35,7 @@
 
 </script>
 <h1>DCGAN・Conditional GANによる数字生成</h1>
-<p>それぞれ1秒ごとに画像を更新します。</p>
+<p>それぞれ5秒ごとに画像を更新します。</p>
 <p>Conditional GANによる数字生成</p>
 
 <form>
