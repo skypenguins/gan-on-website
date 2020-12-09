@@ -1,17 +1,58 @@
 {% extends "layout.html" %}
 {% block content %}
-<p>cGANによる数字生成</p>
 <script type="text/javascript">
-    function getGanImage(num) {
-        var num = document.getElementById('inputNum').value;
-        var img = document.getElementById('generatedImage');
-        img.setAttribute('src', '/genimage?q=' + num + '&dummy=' + new Date().getTime()); // キャッシュ阻止
+    var cganInterval;
+    var dcganInterval;
+
+    function changeConditionalGanImage() {
+        cganInterval = setInterval(getConditionalGanImage, 1000); // 1秒ごとにgetConditionalGanImage()を呼び出す
     }
+
+    function changeDcganImage() {
+        dcganInterval = setInterval(getDcganImage, 1000); // 1秒ごとにgetConditionalGanImage()を呼び出す
+    }
+
+    function getConditionalGanImage() {
+        console.log("invoked getConditionalGanImage()");
+        var num = document.getElementById('inputNum').value;
+        var cganImg = document.getElementById('generatedConditionalGanImage');
+        cganImg.setAttribute('src', '/genimage?type=cgan&opt=' + num + '&dummy=' + new Date().getTime()); // キャッシュ阻止
+    }
+
+    function getDcganImage() {
+        console.log("invoked getDcganImage()");
+        var dcganImg = document.getElementById('generatedDcganImage');
+        dcganImg.setAttribute('src', '/genimage?type=dcgan' + '&dummy=' + new Date().getTime()); // キャッシュ阻止
+    }
+
+    function stopGetConditionalGanImage() {
+        clearInterval(cganInterval); // Conditional GANの数字生成API呼び出しの停止
+    }
+
+    function stopGetDcganImage() {
+        clearInterval(dcganInterval); // DCGANの数字生成API呼び出しの停止
+    }
+
 </script>
-<form action="#">
+<h1>DCGAN・Conditional GANによる数字生成</h1>
+<p>それぞれ1秒ごとに画像を更新します。</p>
+<p>Conditional GANによる数字生成</p>
+
+<form>
     <label>1～9までの数値を選択</label>
     <input type="number" min="1" max="9" id="inputNum" value="1">
-    <button onclick="getGanImage()">生成</button>
 </form>
-<img src="/genimage?q=1" id="generatedImage">
+<img src="" id="generatedConditionalGanImage">
+<p>
+    <button onclick="changeConditionalGanImage();">生成開始</button>
+    <button onclick="stopGetConditionalGanImage();">生成停止</button>
+</p>
+
+<p>DCGANによるランダムな数字生成</p>
+
+<img src="" id="generatedDcganImage">
+<p>
+    <button onclick="changeDcganImage();">生成開始</button>
+    <button onclick="stopGetDcganImage();">生成停止</button>
+</p>
 {% endblock %}

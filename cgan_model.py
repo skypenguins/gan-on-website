@@ -10,10 +10,12 @@ import random
 random.seed(0)
 torch.manual_seed(0)
 
+# Condional GANのGenerator
 
-class Generator(nn.Module):
+
+class CganGenerator(nn.Module):
     def __init__(self, nz=100, nch_g=64, nch=1):  # nzは入力ベクトルzの次元
-        super(Generator, self).__init__()
+        super(CganGenerator, self).__init__()
 
         # ネットワーク構造の定義
         self.layers = nn.ModuleList([
@@ -70,12 +72,11 @@ def weights_init(m):
         m.bias.data.fill_(0)
 
 
-# Generatorの作成
 nz = 100  # 画像を生成するための特徴マップの次元数
-nch_g = 64  # Generatorの最終層の入力チャネル数
+nch_g = 64  # CganGeneratorの最終層の入力チャネル数
 # 10はn_class=10を指す。出し分けに必要なラベル情報。
-netG = Generator(nz=nz+10, nch_g=nch_g)
-netG.apply(weights_init)
+cgan_model_G = CganGenerator(nz=nz+10, nch_g=nch_g)
+cgan_model_G.apply(weights_init)
 
 # Onehotエンコーディング
 
@@ -103,6 +104,7 @@ def concat_noise_label(noise, label, device=torch.device('cpu')):
     return torch.cat((noise, oh_label), dim=1)
 
 
-# モデルのロード
-model_path = './cgan_generator.pkl'
-netG.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+# 重みのロード
+weights_path = './cgan_generator.pkl'
+cgan_model_G.load_state_dict(torch.load(
+    weights_path, map_location=torch.device('cpu')))
