@@ -1,5 +1,5 @@
 # generated_num_#.png
 *.png
 
-# git
 .git/
+__pycache__/
