@@ -4,12 +4,12 @@ import os
 bind = '0.0.0.0:8000'
 
 # Debugging
-reload = True
+#reload = True
 
 # Logging
-accesslog = '-'
-errorlog = '-'
-loglevel = 'debug'
+accesslog = './log/access.log'
+errorlog = './log/error.log'
+loglevel = 'info'
 
 # Proc Name
 proc_name = 'GAN-on-flask'
