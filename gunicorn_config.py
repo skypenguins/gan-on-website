@@ -1,7 +1,7 @@
 import os
 
 # host & port
-bind = '0.0.0.0:8000'
+bind = '0.0.0.0:80'
 
 # Debugging
 #reload = True

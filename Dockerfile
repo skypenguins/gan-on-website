@@ -13,7 +13,7 @@ COPY . .
 # gunicornの設定ファイルを転送
 COPY ./gunicorn_config.py /app/config/gunicorn_config.py
 
-EXPOSE 8000
+EXPOSE 80
 
 # gunicornの起動
 ENTRYPOINT ["gunicorn", "app:app"]
