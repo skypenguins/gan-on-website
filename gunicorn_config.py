@@ -1,5 +1,8 @@
 import os
 
+# host & port
+bind = '0.0.0.0:8000'
+
 # Debugging
 reload = True
 
